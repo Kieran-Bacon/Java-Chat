@@ -19,21 +19,22 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
 	public static void main(String[] args) {
 		try {
-				System.setSecurityManager (new RMISecurityManager());
+			System.setSecurityManager (new RMISecurityManager());
 
-			 	java.rmi.registry.LocateRegistry.createRegistry(5665);
+			java.rmi.registry.LocateRegistry.createRegistry(5665);
 
-				String address = InetAddress.getLocalHost().getHostAddress();
-				System.out.print( "Address: " + address );
-				//System.setProperty( "java.rmi.server.hostname", "pestilence.ex.ac.uk" );
-			 	
-				Server object = new Server();
-				Naming.rebind("rmi://"+address+"/SuperChat", object );
+			String address = InetAddress.getLocalHost().getHostAddress();
+			System.out.print( "Address: " + address );
+			//System.setProperty( "java.rmi.server.hostname", "pestilence.ex.ac.uk" );
+			
+			Server object = new Server();
+			Naming.rebind("rmi://"+address+"/SuperChat", object );
 
-				System.out.println("[System] Chat Server is ready.");
-			}catch (Exception e) {
-					System.out.println("Chat Server failed: " + e);
-			}
+			System.out.println("[System] Chat Server is ready.");
+		}
+		catch (Exception e) {
+				System.out.println("Chat Server failed: " + e);
+		}
 	}
 
 	public boolean login( ClientInterface user, String passwd, String topic ) throws RemoteException
